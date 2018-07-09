@@ -8,3 +8,17 @@ __pycache__/
 
 # pycharm
 .idea
+
+# Unit test / coverage reports
+htmlcov/
+htmltest/
+tests/.pytest_cache/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
