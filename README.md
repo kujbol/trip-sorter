@@ -3,7 +3,7 @@
 
 # Usage
 You need to initialize TripSorter, you can chose algorithm, or write your own
-and expand functionality. More details can be found in doc strings.
+and expand functionality. More details can be found in doc strings. 
 
 example usage
 ```python
@@ -24,8 +24,8 @@ result = trip_sorter.sort_trips(trips)
 form working example check `trip_sorter.example`
 
 
-#Running
-* You can use docker compose, and start example or start tests 
+# Running
+* You can use docker compose, and start example or start tests by simply typing 
 ```bash
 docker-compose up example
 docker-compose up tests

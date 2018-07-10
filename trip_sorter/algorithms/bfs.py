@@ -7,6 +7,13 @@ class BFSAlgorithm:
     """
     This algorithm can be used only for simplest case. It can be applied
     for case where all trips needs to be used and there are no round trips.
+
+    If there is:
+    - loop
+    - multiple candidates for source / target
+    - no candidates for source / target
+
+    algorithm will return InvalidData error with description why it occured.
     """
 
     def __init__(self):

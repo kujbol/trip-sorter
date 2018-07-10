@@ -1,8 +1,5 @@
 class TripSorter:
-    """
-    One time used object, It should be disposed after sorting trips
-
-
+    """One time used object, It should be disposed after sorting trips
     """
     def __init__(self, algorithm, input_serializer, output_serializer):
         """
@@ -18,6 +15,9 @@ class TripSorter:
         self.output_serializer = output_serializer
 
     def sort_trips(self, trips):
+        """Gets unordered list of trips and calculate correct order.
+        Uses for it algorithm provided in init and input/output serializer.
+        """
         serialized_trips = self.input_serializer.serialize(trips)
 
         for trip in serialized_trips.values():
