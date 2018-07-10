@@ -7,5 +7,5 @@ COPY requirements.txt /app
 RUN pip install -U setuptools pip wheel==0.31.1
 RUN pip install -r requirements.txt
 
-COPY setup.py /app
+COPY . /app
 RUN pip install -e .
