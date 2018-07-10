@@ -81,10 +81,29 @@ def multiple_2_potential_targets():
     ]
 
 
+@pytest.fixture()
+def not_all_ticket_connected():
+    """
+    1 --> 2  3 --> 4
+       0        1
+    """
+
+    return [
+        (1, 2, 0),
+        (3, 4, 1)
+    ]
+
+
+@pytest.fixture()
+def no_trips():
+    return []
+
+
 @pytest.fixture(params=[
     simple_2_trip_path,
     simple_1_trip_path,
     simple_10_reversed_places,
+    no_trips,
 ])
 def working_trip(request):
     return request.param()
@@ -94,6 +113,7 @@ def working_trip(request):
     no_potential_start_loop,
     multiple_potential_sources,
     multiple_2_potential_targets,
+    not_all_ticket_connected
 ])
 def not_working_trip(request):
     return request.param()

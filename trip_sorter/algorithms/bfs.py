@@ -23,6 +23,10 @@ class BFSAlgorithm:
         self.out_degree[source_id] = self.out_degree[source_id] + 1
 
     def sort_trips(self):
+        # 0 ticket should work
+        if len(self.adjacency_list) == 0:
+            return []
+
         source, target = self._find_source(), self._find_targets()
         queue = deque()
         visited = dict()

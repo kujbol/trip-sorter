@@ -46,8 +46,8 @@ class PlaneSerializer:
     @staticmethod
     def serialize(trip):
         return (
-            f'{PlaceSerializer.serialize(trip).capitalize()}, take flight '
-            f'{TransportIdSerializer.serialize(trip)} Airport. '
+            f'{PlaceSerializer.serialize(trip).capitalize()} Airport, '
+            f'take flight {TransportIdSerializer.serialize(trip)}. '
             f'{TransportStartSerializer.serialize(trip)}, '
             f'{SeatSerializer.serialize(trip)}'
         )
