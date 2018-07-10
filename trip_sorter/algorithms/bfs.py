@@ -1,6 +1,6 @@
 from collections import defaultdict, deque
 
-from trip_sorter.algorithms import InvalidData
+from trip_sorter.errors import InvalidData
 
 
 class BFSAlgorithm:
