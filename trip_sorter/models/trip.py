@@ -13,10 +13,16 @@ class TripType(enum.Enum):
 
 
 @dataclass
+class TripDetails:
+    type: TripType
+    transport_id: str
+    transport_start_place: str
+    seat: str
+
+
+@dataclass
 class Trip:
     id: int
-    type: TripType
     source: Place
     target: Place
-
-
+    trip_details: TripDetails

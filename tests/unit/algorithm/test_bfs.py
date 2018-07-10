@@ -38,19 +38,25 @@ def test_10_reversed_places(algorithm, simple_10_reversed_places):
 def test_no_potential_start_loop(algorithm, no_potential_start_loop):
     load_data(algorithm, no_potential_start_loop)
 
-    with pytest.raises(InvalidData):
+    with pytest.raises(InvalidData) as exc:
         algorithm.sort_trips()
+
+    assert 'Expected 1 potential source, found: 0' in exc.value.args[0]
 
 
 def test_2_potential_sources(algorithm, multiple_potential_sources):
     load_data(algorithm, multiple_potential_sources)
 
-    with pytest.raises(InvalidData):
+    with pytest.raises(InvalidData) as exc:
         algorithm.sort_trips()
+
+    assert 'Expected 1 potential source, found: 2' in exc.value.args[0]
 
 
 def test_2_potential_targets(algorithm, multiple_2_potential_targets):
     load_data(algorithm, multiple_2_potential_targets)
 
-    with pytest.raises(InvalidData):
+    with pytest.raises(InvalidData) as exc:
         algorithm.sort_trips()
+
+    assert 'Expected 1 potential source, found: 0' in exc.value.args[0]

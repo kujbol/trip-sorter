@@ -1,6 +1,6 @@
 from trip_sorter.errors import InvalidInput
 from trip_sorter.models.place import Place, PlaceType
-from trip_sorter.models.trip import Trip, TripType
+from trip_sorter.models.trip import Trip, TripType, TripDetails
 
 
 class InputSerializer:
@@ -17,15 +17,19 @@ class InputSerializer:
     def serialize(self, trips: list):
         """
         Expected format - list of objects with properties:
-        type: str, type of trip, it can be one from TripType
-        source: obj
+        source: dict
             id: id of the source for the trip
             name: name of the place
             type: type of the source, it can be one from PlaceType
-        target: obj
+        target: dict
             id: id of the source for the trip
             name: name of the place
             type: type of the source, it can be one from PlaceType
+        trip_details: dict
+            type: str, type of trip, it can be one from TripType
+            transport_id: str, transport real identification name
+            transport_start_place: str, transport start place for example train station / gate 783
+            seat: str, stea number of transport
         """
         for trip_id, trip in enumerate(trips):
             trip = self.serialize_trip(trip_id, trip)
@@ -39,10 +43,12 @@ class InputSerializer:
             target = self.serialize_place(trip_id, trip['target'])
 
             trip = Trip(
-                type=TripType[trip['type']],
                 id=trip_id,
                 source=source,
                 target=target,
+                trip_details=self.serialize_trip_details(
+                    trip_id, trip['trip_details']
+                )
             )
 
             return trip
@@ -70,4 +76,17 @@ class InputSerializer:
         except KeyError as exc:
             raise InvalidInput(
                 f'Invalid place for trip: {trip_id}, missing key: {exc}'
+            )
+
+    def serialize_trip_details(self, trip_id, trip_details) -> TripDetails:
+        try:
+            return TripDetails(
+                type=trip_details['type'],
+                transport_id=trip_details.get('transport_id'),
+                transport_start_place=trip_details.get('transport_start_place'),
+                seat=trip_details.get('seat'),
+            )
+        except KeyError as exc:
+            raise InvalidInput(
+                f'Invalid trip details for trip: {trip_id}, missing key: {exc}'
             )

@@ -7,9 +7,17 @@ from trip_sorter.models.trip import TripType
 
 
 def create_input_from_case(case):
+    def create_trip_detail(trip_type: TripType):
+        return {
+            'type': trip_type.value,
+            'transport_id': 'No13234',
+            'transport_start_place': 'gate 13',
+            'seat': None
+        }
+
     return [
         {
-            'type': choice(list(TripType)).value,
+            'trip_details': create_trip_detail(choice(list(TripType))),
             'source': {
                 'id': source_id,
                 'name': f'Place {source_id}',

@@ -58,3 +58,15 @@ def test_invalid_trip(input_simple_2_trip_path, param_missing_key, serializer):
         serializer.serialize(input_simple_2_trip_path)
 
     assert 'Invalid place for trip: 0' in exc.value.args[0]
+
+
+def test_invalid_trip_details(input_simple_2_trip_path, serializer):
+    del input_simple_2_trip_path[0]['trip_details']['type']
+
+    with pytest.raises(InvalidInput) as exc:
+        serializer.serialize(input_simple_2_trip_path)
+
+    assert (
+        "Invalid trip details for trip: 0, missing key: 'type'"
+        in exc.value.args[0]
+    )

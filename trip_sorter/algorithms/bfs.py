@@ -14,13 +14,13 @@ class BFSAlgorithm:
         self.out_degree = defaultdict(lambda: 0)
         self.in_degree = defaultdict(lambda: 0)
 
-    def add_trip(self, source, target, trip_id):
-        self.adjacency_list[source].append(
-            {'target': target, 'trip_id': trip_id}
+    def add_trip(self, source_id, target_id, trip_id):
+        self.adjacency_list[source_id].append(
+            {'target': target_id, 'trip_id': trip_id}
         )
 
-        self.in_degree[target] = self.in_degree[target] + 1
-        self.out_degree[source] = self.out_degree[source] + 1
+        self.in_degree[target_id] = self.in_degree[target_id] + 1
+        self.out_degree[source_id] = self.out_degree[source_id] + 1
 
     def sort_trips(self):
         source, target = self._find_source(), self._find_targets()
