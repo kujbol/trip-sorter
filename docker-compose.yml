@@ -4,8 +4,12 @@ services:
   base: &base
     build: .
     volumes:
-      - .:/root
+      - .:/app
 
   tests:
     <<: *base
     command: py.test tests
+
+  example:
+    <<: *base
+    command: python trip_sorter/example.py

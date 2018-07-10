@@ -28,7 +28,7 @@ class TransportStartSerializer:
         transport_start = trip.trip_details.transport_start_place
         if not transport_start:
             return ''
-        return f'{transport_start.capitalize()}'
+        return f'{transport_start.title()}, '
 
 
 class TrainSerializer:
@@ -37,8 +37,8 @@ class TrainSerializer:
         return (
             f'Take train {TransportIdSerializer.serialize(trip)} '
             f'{PlaceSerializer.serialize(trip)}. '
-            f'{TransportStartSerializer.serialize(trip)}, '
-            f'{SeatSerializer.serialize(trip)}'
+            f'{TransportStartSerializer.serialize(trip)}'
+            f'{SeatSerializer.serialize(trip)}.'
         )
 
 
@@ -46,10 +46,10 @@ class PlaneSerializer:
     @staticmethod
     def serialize(trip):
         return (
-            f'{PlaceSerializer.serialize(trip).capitalize()} Airport, '
+            f'{PlaceSerializer.serialize(trip).title()}, '
             f'take flight {TransportIdSerializer.serialize(trip)}. '
-            f'{TransportStartSerializer.serialize(trip)}, '
-            f'{SeatSerializer.serialize(trip)}'
+            f'{TransportStartSerializer.serialize(trip)}'
+            f'{SeatSerializer.serialize(trip)}.'
         )
 
 
@@ -58,7 +58,7 @@ class BusSerializer:
     def serialize(trip):
         return (
             f'Take the {TransportIdSerializer.serialize(trip)} bus '
-            f'{PlaceSerializer.serialize(trip).capitalize()}. '
-            f'{TransportStartSerializer.serialize(trip)}, '
-            f'{SeatSerializer.serialize(trip)}'
+            f'{PlaceSerializer.serialize(trip).title()}. '
+            f'{TransportStartSerializer.serialize(trip)}'
+            f'{SeatSerializer.serialize(trip)}.'
         )

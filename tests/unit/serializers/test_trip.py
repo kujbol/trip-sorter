@@ -41,7 +41,7 @@ def test_seat_serialize_no_seat(trip):
 
 def test_transport_serialize(trip):
     result = TransportStartSerializer.serialize(trip)
-    assert result == 'Gate 13'
+    assert result == 'Gate 13, '
 
 
 def test_transport_serialize_no_transport(trip):

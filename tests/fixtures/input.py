@@ -2,6 +2,7 @@ from random import choice
 
 import pytest
 
+from trip_sorter.example import example_from_file
 from trip_sorter.models.trip import TripType
 
 
@@ -68,3 +69,8 @@ def input_working_trip(working_trip):
 @pytest.fixture()
 def input_not_working_trip(not_working_trip):
     return create_input_from_case(not_working_trip)
+
+
+@pytest.fixture()
+def example():
+    return example_from_file

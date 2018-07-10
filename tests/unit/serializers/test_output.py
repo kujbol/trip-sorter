@@ -6,7 +6,7 @@ from trip_sorter.serializers.output import OutputSerializer
 
 @pytest.mark.parametrize('param_trip_type, expected_keyword', [
     (TripType.bus, 'bus'),
-    (TripType.plane, 'Airport'),
+    (TripType.plane, 'flight'),
     (TripType.train, 'train'),
 ])
 def test_output_serialize_1_trip(trip, param_trip_type, expected_keyword):
@@ -29,5 +29,5 @@ def test_many_output(trip, trip_2):
     assert len(result) == 3
 
     # check order
-    assert 'Airport' in result[0]
+    assert 'flight' in result[0]
     assert 'train' in result[1]

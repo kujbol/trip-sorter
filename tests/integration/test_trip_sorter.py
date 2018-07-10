@@ -5,7 +5,6 @@ from trip_sorter.serializers.input import InputSerializer
 from trip_sorter.serializers.output import OutputSerializer
 from trip_sorter.algorithms.bfs import BFSAlgorithm
 from trip_sorter.errors import InvalidData
-from trip_sorter.models.trip import TripType
 
 
 @pytest.fixture()
@@ -30,15 +29,16 @@ def test_not_working_inputs(input_not_working_trip, trip_sorter):
         trip_sorter.sort_trips(input_not_working_trip)
 
 
-def test_full_integration(input_simple_2_trip_path, trip_sorter):
-    modified_input = list(input_simple_2_trip_path)
-    modified_input[0]['trip_details']['type'] = TripType.train.value
-    modified_input[1]['trip_details']['type'] = TripType.plane.value
-
-    result = trip_sorter.sort_trips(input_simple_2_trip_path)
+def test_full_integration(example, trip_sorter):
+    result = trip_sorter.sort_trips(example)
 
     assert result == [
-        'Take train No13234 from Place 1 to Place 2. Gate 13, Seat A13',
-        'From place 2 to place 3 Airport, take flight No13234. Gate 13, Seat A13',  # noqa
+        'Take train 78A from Madrid to Barcelona. Seat 45B.',
+        'Take the "airport" bus From Barcelona To Gerona Airport. No seat '
+        'assignment.',
+        'From Gerona Airport To Stockholm Airport, take flight SK455. Gate '
+        '45B, Seat 3A.',
+        'From Stockholm Airport To New York Jfk, take flight SK22. Gate 22, '
+        'Seat 7B.',
         'You have arrived at your final destination.'
     ]
