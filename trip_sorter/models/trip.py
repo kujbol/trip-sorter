@@ -8,8 +8,6 @@ class TripType(enum.Enum):
     plane = 'plane'
     train = 'train'
     bus = 'bus'
-    taxi = 'taxi'
-    foot = 'foot'
 
 
 @dataclass

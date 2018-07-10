@@ -1,5 +1,5 @@
 from trip_sorter.errors import InvalidInput
-from trip_sorter.models.place import Place, PlaceType
+from trip_sorter.models.place import Place
 from trip_sorter.models.trip import Trip, TripType, TripDetails
 
 
@@ -12,7 +12,7 @@ class InputSerializer:
     """
     def __init__(self):
         self.serialized_places = {}
-        self.serialized_trips = []
+        self.serialized_trips = {}
 
     def serialize(self, trips: list):
         """
@@ -33,7 +33,7 @@ class InputSerializer:
         """
         for trip_id, trip in enumerate(trips):
             trip = self.serialize_trip(trip_id, trip)
-            self.serialized_trips.append(trip)
+            self.serialized_trips[trip_id] = trip
 
         return self.serialized_trips
 
@@ -67,7 +67,6 @@ class InputSerializer:
 
             place = Place(
                 id=place_id,
-                type=PlaceType[place['type']],
                 place_name=place['name']
             )
             self.serialized_places[place_id] = place
@@ -79,9 +78,12 @@ class InputSerializer:
             )
 
     def serialize_trip_details(self, trip_id, trip_details) -> TripDetails:
+        # If trip details can differ from each other based on type, it is
+        # possible to create separate serializers for each trip_details
+        # type separately
         try:
             return TripDetails(
-                type=trip_details['type'],
+                type=TripType[trip_details['type']],
                 transport_id=trip_details.get('transport_id'),
                 transport_start_place=trip_details.get('transport_start_place'),
                 seat=trip_details.get('seat'),

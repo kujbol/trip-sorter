@@ -2,7 +2,6 @@ from random import choice
 
 import pytest
 
-from trip_sorter.models.place import PlaceType
 from trip_sorter.models.trip import TripType
 
 
@@ -12,7 +11,7 @@ def create_input_from_case(case):
             'type': trip_type.value,
             'transport_id': 'No13234',
             'transport_start_place': 'gate 13',
-            'seat': None
+            'seat': 'A13'
         }
 
     return [
@@ -21,12 +20,10 @@ def create_input_from_case(case):
             'source': {
                 'id': source_id,
                 'name': f'Place {source_id}',
-                'type': choice(list(PlaceType)).value,
             },
             'target': {
                 'id': target_id,
                 'name': f'Place {target_id}',
-                'type': choice(list(PlaceType)).value,
             },
         }
         for source_id, target_id, _ in case

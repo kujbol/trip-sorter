@@ -26,8 +26,8 @@ def test_input_handler_simple_2_trip_path(
     for place in [trip_0.source, trip_0.target, trip_1.target]:
         assert serializer.serialized_places[place.id] == place
 
-    assert trip_0 in serializer.serialized_trips
-    assert trip_1 in serializer.serialized_trips
+    assert trip_0.id in serializer.serialized_trips
+    assert trip_1.id in serializer.serialized_trips
 
 
 def test_inputs(input_working_trip, serializer):
@@ -49,7 +49,7 @@ def test_invalid_trip(input_simple_2_trip_path, param_missing_key, serializer):
 
 
 @pytest.mark.parametrize('param_missing_key', [
-    'type', 'name', 'id'
+    'name', 'id'
 ])
 def test_invalid_trip(input_simple_2_trip_path, param_missing_key, serializer):
     del input_simple_2_trip_path[0]['source'][param_missing_key]
@@ -70,3 +70,10 @@ def test_invalid_trip_details(input_simple_2_trip_path, serializer):
         "Invalid trip details for trip: 0, missing key: 'type'"
         in exc.value.args[0]
     )
+
+
+def test_invalid_invalid_type(input_simple_2_trip_path, serializer):
+    input_simple_2_trip_path[0]['trip_details']['type'] = 'INVALID'
+
+    with pytest.raises(InvalidInput):
+        serializer.serialize(input_simple_2_trip_path)
